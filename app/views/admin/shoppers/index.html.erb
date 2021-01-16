@@ -1,0 +1,56 @@
+<h1>Customers</h1>
+
+<table class="table" id="id-customers-table">
+  <thead>
+    <tr>
+      <th>Customer ID</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th>Name</th>
+      <th>Current password</th>
+      <th>Edit</th>
+      <th>Delete</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @shoppers.each do |shopper| %>
+      <tr>
+        <td><%= shopper.id %></td>
+        <td><%= shopper.email %></td>
+        <td><%= shopper.address %></td>
+        <td><%= shopper.name %></td>
+        <td><%= shopper.crpw %></td>
+        <td><%= link_to 'Edit', edit_admin_shopper_path(shopper), class: "btn btn-primary" %></td>
+        <td><%= link_to 'Destroy', admin_shopper_path(shopper), method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+$(document).ready( function () {
+    // alert('ready');
+
+var d = new Date();
+var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+
+    $('#id-customers-table').DataTable({
+       paging: true,
+       searching: true,
+       ordering:  true,
+       dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Customer-' + strDate,
+                exportOptions: {
+                    columns: [ 0,1,2,3,4 ]
+                }
+            }, 'csv', 'pdf', 'print'
+        ]
+    });
+
+});
+</script>

@@ -1,0 +1,48 @@
+    <% if @line_items.count == 0 %>
+        <tr>
+          <td>No item</td>
+        </tr>
+    <% else %>
+
+      <% @sum = 0 %>
+
+      <% @line_items.each do |line_item| %>
+
+        <% if line_item.product.discount > 0 %>
+          <% @sum = @sum + (line_item.quantity * line_item.product.unit_price-((line_item.product.discount/100)*line_item.product.unit_price)) %>
+          <% else %>
+            <% @sum = @sum + (line_item.quantity * line_item.product.unit_price) %>
+          <% end %>
+
+        <tr>
+          <td><%= image_tag line_item.product.image.url, style: "height: 250px; width: 250px;" %></td>
+          <td><%= line_item.product.name %></td>
+          <td>
+            <% if line_item.product.discount > 0 %>
+                <span style="text-decoration: line-through;">
+                  <%= number_to_currency(line_item.product.unit_price) %>
+                 </span> <br>
+                <span>
+                  <%= number_to_currency(line_item.product.unit_price-((line_item.product.discount/100)*line_item.product.unit_price)) %>
+                </span>    
+            <% else %> 
+              <%= line_item.product.unit_price %> 
+            <% end %>      
+          </td>
+
+          <td><%= line_item.quantity %> </td>
+
+          <td>
+            <% if line_item.product.discount > 0 %>
+              <%= (line_item.product.unit_price-((line_item.product.discount/100)*line_item.product.unit_price)) * line_item.quantity %>
+            <% else %>  
+              <%= line_item.product.unit_price * line_item.quantity %>        
+            <% end %>             
+          </td>
+
+        </tr>
+      <% end %>
+    <% end %>
+
+<h1 id="test_subtotal" style="display: none;"><%= @sum %></h1>
+

@@ -1,0 +1,33 @@
+<div class="dropdown sidebar sidebar-md">
+	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		Operations
+		<span class="caret"></span>
+	</button>
+
+	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+		<% if current_admin %>
+			<li class="dropdown-header">Actions</li>
+			<li class=""><a href="<%= admin_products_path %>">Products</a></li>
+			<li class=""><a href="<%= admin_categories_path %>">Categories</a></li>
+			<li><a href="<%= admin_carts_path %>">Orders</a></li>
+			<li><a href="<%= admin_shoppers_path %>">Customers</a></li>
+			<li><a href="<%= admin_promocodes_path %>">Promo Codes</a></li>
+
+		<% elsif current_shopper %>
+			<li class="dropdown-header">Actions</li>
+			<li class=""><a href="<%= products_path %>">Products</a></li>
+			<li class=""><a href="<%= categories_path %>">Categories</a></li>
+			<li><a href="<%= line_items_path %>">Carts</a></li>
+			<li><a href="<%= carts_path %>">Ordes</a></li>
+		<% else %>
+			<li class="dropdown-header">Categories</li>
+
+		    <% Category.all.each do |category| %>
+		    	<li><%= link_to category.name, category_path(category) %></li>	
+		    <% end %>
+		<% end %>
+
+
+	</ul>
+</div>

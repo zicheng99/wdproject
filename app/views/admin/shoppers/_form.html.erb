@@ -1,0 +1,47 @@
+<%= form_with(model: [:admin, shopper]) do |form| %>
+  <% if shopper.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(shopper.errors.count, "error") %> prohibited this shopper from being saved:</h2>
+
+      <ul>
+        <% shopper.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :crpw %>
+    <%= form.text_field :crpw %>
+  </div>
+
+  <div class="field">
+    <% form.label :npw %>
+    <%= form.hidden_field :npw %>
+  </div>
+
+  <div class="field">
+    <% form.label :cfpw %>
+    <%= form.hidden_field :cfpw %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

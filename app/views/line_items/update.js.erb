@@ -1,0 +1,30 @@
+
+//alert("from update.js.erb");
+document.getElementById("tbody_line_items").innerHTML = "<%= j render(:partial => 'test') %>";
+
+    <% @sum = 0 %>
+    <% @line_items.each do |line_item| %>
+      <% if line_item.product.discount > 0 %>
+      	<% @sum = @sum + (line_item.quantity * line_item.product.unit_price-((line_item.product.discount/100)*line_item.product.unit_price)) %>
+  	  <% else %>
+  	  	<% @sum = @sum + (line_item.quantity * line_item.product.unit_price) %>
+  	  <% end %>
+    <% end %>
+
+<% @grand = @sum + 10 %>
+
+document.getElementById("id_subtotal").innerHTML = "<%= @sum.to_s  %>" + "0"
+document.getElementById("id_grand_total").innerHTML = "<%= @grand.to_s  %>" + "0"
+
+document.querySelectorAll('.line_item_qty').forEach(item => {
+	item.addEventListener('change', event => {
+	    console.log(item.parentElement);
+	    console.log(item.parentElement.childNodes);
+	    console.log(item.parentElement.querySelector('input[value="updateqty"]'));
+	    item.parentElement.querySelector('input[value="updateqty"]').click();
+	});
+});
+
+
+
+

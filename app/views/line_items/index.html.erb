@@ -1,0 +1,150 @@
+<%= link_to 'Continue Shopping', products_path, class: "btn btn-primary" %><br><br>
+
+<h1>Cart</h1> <br>
+
+<div class="row">
+  <div class="col-md-8">
+    <table class="table" id="id-lineitems-table">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Image</th>
+      <th style="width: 15%;">Product Name</th>
+      <th>U.Price</th>
+      <th style="width: 10%;">Qty</th>
+      <th style="width: 10%;">Subtotal</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+ 
+  <tbody id="tbody_line_items">
+    <%= render 'test' %>
+  </tbody>
+
+</table>
+  </div> <!-- /col-md-8 -->
+
+<% if @line_items.count != 0 %>
+<div class="col-md-4">
+
+<div class="card">
+  <div class="card-header text-center">
+    <h2>Payment</h2>
+  </div>
+  <div class="card-body">
+    <table class="table">
+
+      <% if current_shopper %>
+      <tr>
+        <td><h5>Shipping Address</h5></td>
+        <td>
+            <h5><input type="radio" name="address" value="Default" checked="checked">Default<br></h5>
+            <h5><input type="radio" name="address" value="Custom">Custom<br></h5>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td colspan="2">
+          <textarea id="txtAdress" name="w3review" rows="3" cols="60">No 03-05, Block 6, Jalan Bertam 16, Taman Daya, 81100, JB, Johor.
+          </textarea>
+        </td>
+      </tr>
+    <% end %>
+      <tr>
+        <td><h5>Subtotal (RM)</h5></td>
+        <td><h5 id="id_subtotal">RM xx.00</h5></td>
+      </tr>
+
+      <tr>
+        <td><h5>Shipping Fee (RM)</h5></td>
+        <td><h5>10.00</h5></td>
+      </tr>
+
+      <tr>
+        <td><h4>Grand Total (RM)</h4></td>
+        <td></span><h4 id="id_grand_total"></h4></td>
+      </tr>  
+
+      <tr>
+        <td><h5>Promo Code</h5></td>
+        <td>  
+          <%= form_with url: "/check_promo", method: :get , local: false, id: "form_promo" do |form| %>
+            <% form.label :query, "Search for:" %>
+            <%= form.text_field :promo, id:"id_promo" %>
+            <%= form.submit "Search", id: "btn_promo", style: "display: none;" %>
+          <% end %>
+          <label id="promo_msg">*If any</label>
+        </td>
+      </tr> 
+
+      <tr style="visibility: visible;" id="row_discount">
+        <td><h5>Discount (RM)</h5></td>
+        <td><h5 id="id_discount">0.00</h5></td>
+      </tr>
+
+      <tr style="visibility: visible;" id="row_discounted">
+        <td><h5>Discounted Price (RM)</h5></td>
+        <td><h5 id="id_discounted">0.00</h5></td>
+      </tr>
+
+    </table>
+
+  </div>
+  <div class="card-footer text-muted text-center">
+    <% if current_shopper %>
+      <%= link_to 'Make Purchase', make_order_path, remote: false, class: "btn btn-primary" %>
+    <% else %>
+      <%= link_to 'Make Purchase', login_path, remote: false, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+
+</div> <!-- /col-md-4 -->
+<% end %>
+</div> <!-- /row -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // alert("Ready!");
+
+      $('#id-lineitems-table').DataTable({
+       paging: true,
+       searching: true,
+       ordering:  true,
+    });
+
+
+  var sub = parseFloat(document.getElementById("test_subtotal").textContent).toFixed(2);
+  document.getElementById("id_subtotal").innerHTML = sub;
+  var grand = (parseFloat(document.getElementById("test_subtotal").textContent) + 10).toFixed(2);
+  document.getElementById("id_grand_total").innerHTML =  grand;
+
+  document.querySelectorAll('.line_item_qty').forEach(item => {
+    item.addEventListener('change', event => {
+        console.log(item.parentElement);
+        console.log(item.parentElement.childNodes);
+        console.log(item.parentElement.querySelector('input[value="updateqty"]'));
+        item.parentElement.querySelector('input[value="updateqty"]').click();
+    });
+  });
+
+$("#id_promo").change(function(e){
+    console.log($("#id_promo").val());
+    $("#btn_promo").click();
+});
+
+$('input[type=radio][name=address]').change(function() {
+    // alert();
+    if (this.value == 'Default') {
+        //alert("Default");
+        $("#txtAdress").val("No 03-05, Block 6, Jalan Bertam 16, Taman Daya, 81100, JB, Johor.");
+
+    }
+    else if (this.value == 'Custom') {
+        $("#txtAdress").val("");
+    }
+});
+
+}, false); // End load
+</script>

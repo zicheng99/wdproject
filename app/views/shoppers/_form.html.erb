@@ -1,0 +1,48 @@
+<%= form_with(model: shopper) do |form| %>
+
+<div class="card">
+  <div class="card-header text-center">
+    <h2>Customer Sign Up</h2>
+  </div>
+  <div class="card-body">
+    <div class="form-group">
+      <%= form.label :email %>
+      <%= form.text_field :email, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :address %>
+      <%= form.text_field :address, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <% form.label :name %>
+      <% form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label "Password" %>
+      <%= form.text_field :crpw, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <% form.label :npw %>
+      <% form.text_field :npw, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label "Confirm Password" %>
+      <%= form.text_field :cfpw, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <div style="text-align: right;">
+        <%= form.submit "Sign Up" , class: "btn btn-primary" %>
+      </div>
+      
+    </div>
+<% end %>
+  </div>
+</div>
+
+

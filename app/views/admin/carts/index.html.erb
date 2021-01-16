@@ -1,0 +1,55 @@
+<h1>Orders</h1>
+
+<table class="table" id="id-admin_order-table" data-page-length='8'>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Username</th>
+      <th>Total (RM)</th>
+      <th>Date</th>
+      <th>Show</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @carts.each do |cart| %>
+      <tr>
+        <td><%= cart.id %></td>
+        <td><%= cart.shopper_name(cart.shopper_id) %></td>
+        <td><%= cart.total %></td>
+        <td><%= cart.created_at %></td>
+        <td><%= link_to 'Show', cart, class: "btn btn-primary" %></td>
+        <td><%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<script>
+$(document).ready( function () {
+    // alert('ready');
+
+var d = new Date();
+var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+
+    $('#id-admin_order-table').DataTable({
+       paging: true,
+       searching: true,
+       ordering:  true,
+       dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Customer Orders-' + strDate,
+                exportOptions: {
+                    columns: [ 0,1,2,3 ]
+                }
+            }, 'csv', 'pdf', 'print'
+        ]
+    });
+
+});
+</script>

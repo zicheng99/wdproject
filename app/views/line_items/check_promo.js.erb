@@ -1,0 +1,25 @@
+//alert("from check_promo " +  "<%= @code %>");
+
+var code = "<%= @code %>";
+
+if(code == "valid"){
+
+$("#promo_msg").html("Valid Promo Code");
+$("#promo_msg").css("color", "green");
+
+	var d_price = "<%= @d_price %>"
+	var g_price = parseFloat($("#id_grand_total").text()).toFixed(2);
+	d_price = (g_price - 20).toFixed(2)
+
+	$("#id_discount").html("20.00");
+	$("#id_discounted").html(d_price);	
+}
+else{
+$("#promo_msg").html("Invalid Promo Code");
+$("#promo_msg").css("color", "red");
+
+
+	$("#id_discount").html("0.00");
+	$("#id_discounted").html("0.00");
+}
+

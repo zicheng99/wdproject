@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin N Admins</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Crpw</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_n_admins.each do |admin_n_admin| %>
+      <tr>
+        <td><%= admin_n_admin.email %></td>
+        <td><%= admin_n_admin.crpw %></td>
+        <td><%= link_to 'Show', admin_n_admin %></td>
+        <td><%= link_to 'Edit', edit_admin_n_admin_path(admin_n_admin) %></td>
+        <td><%= link_to 'Destroy', admin_n_admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin N Admin', new_admin_n_admin_path %>

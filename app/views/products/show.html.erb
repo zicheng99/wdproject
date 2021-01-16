@@ -1,0 +1,49 @@
+<div class="row">
+	<div class="col-md-2"></div>
+
+	<div class="col-md-4">
+		<p>		
+			<%= link_to 'Continue Shopping', products_path, class: "btn btn-primary", style: ""%>
+		</p>
+		<%= image_tag @product.image.url, style: "height: 250px; width: 250px;" %>
+		<p><%= @product.desc %></p>
+	</div>
+
+	<div class="col-md-4">
+
+		<% if @product.discount > 0 %>
+			<span style="background-color: red; color: white; padding: 5px; border-radius: 25px;">Discount <%= @product.discount.to_i %>%</span>
+		<% end %>
+
+		<h2 style="margin-top: 8px;"><%= @product.name %></h2>
+
+        <% if @product.discount > 0 %>
+
+              <h5>
+                <span style="text-decoration: line-through;">
+                  <%= number_to_currency(@product.unit_price) %>
+                 </span>
+                <span>
+                  <%= number_to_currency(@product.unit_price-((@product.discount/100)*@product.unit_price)) %>
+                </span>
+              </h5>
+            <% else %>
+              <h4><%= number_to_currency(@product.unit_price) %></h4> 
+        <% end %>
+
+		 <%= form_for @line_item do |f| %>
+		   <div class="form-group">
+		   	<%= f.number_field :quantity, value: 1, class: "form-control", min: 1, style: "width: 50%;" %>
+		   </div>
+		  	
+		    <%= f.hidden_field :product_id, value: @product.id %>
+		    <%= f.submit "Add to Cart", class: "btn btn-primary" %>
+		 <% end %>
+
+
+	</div>
+
+	<div class="col-md-2"></div>
+</div>
+
+

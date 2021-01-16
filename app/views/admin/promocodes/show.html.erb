@@ -1,0 +1,28 @@
+
+<p>
+  <strong>Name:</strong>
+  <%= @admin_promocode.name %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @admin_promocode.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @admin_promocode.end %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @admin_promocode.discount_type %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @admin_promocode.value %>
+</p>
+
+<%= link_to 'Edit', edit_admin_promocode_path(@admin_promocode) %> |
+<%= link_to 'Back', admin_promocodes_path %>

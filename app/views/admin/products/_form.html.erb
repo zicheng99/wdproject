@@ -1,0 +1,49 @@
+<%= form_for [:admin, product] do |form| %>
+
+<div class="card ">
+  <div class="card-header text-center">
+    New Product
+  </div>
+  <div class="card-body">
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Description" %>
+    <%= form.text_field :desc, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label "Unit Price" %>
+    <%= form.text_field :unit_price, class: "form-control"  %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :discount %>
+    <%= form.number_field :discount, value: 0, class: "form-control", min: 0, class: "form-control"  %>
+  </div>
+
+  <div class="form-group" style="display: inline-block;">
+    <label class="form-check-label" for="check1">
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :name, class: "form-check-input", id: "check1"  %>
+    </label>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :image %>
+    <%= form.file_field :image, class: "form-control"  %>
+  </div>
+
+  <div class="actions" style="text-center">
+    <p style="text-align: center;"> 
+      <%= form.submit class: "btn btn-primary" %>
+    </p>
+    
+  </div>
+<% end %>
+  </div>
+</div>
+
+

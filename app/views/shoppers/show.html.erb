@@ -1,0 +1,19 @@
+<p>
+  <strong>Email:</strong>
+  <%= @shopper.email %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @shopper.address %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @shopper.name %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_shopper_path(@shopper) %> |
+<%= link_to 'Back', shoppers_path %>

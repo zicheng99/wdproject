@@ -1,0 +1,60 @@
+<h1>Promo Codes</h1>
+  <%= link_to 'New Promocode', new_admin_promocode_path, class: "btn btn-primary" %>
+<br><br>
+
+<table id="id-promocodes-table" class="table" style="text-align: center;">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Type</th>
+      <th>Value</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_promocodes.each do |admin_promocode| %>
+      <tr>
+        <td><%= admin_promocode.name %></td>
+        <td><%= admin_promocode.start %></td>
+        <td><%= admin_promocode.end %></td>
+        <td><%= admin_promocode.discount_type %></td>
+        <td><%= admin_promocode.value %></td>
+        <td><%= link_to 'Edit', edit_admin_promocode_path(admin_promocode), class: "btn btn-primary" %></td>
+        <td><%= link_to 'Destroy', admin_promocode, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+<script>
+$(document).ready( function () {
+    // alert('ready');
+
+var d = new Date();
+var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+
+    $('#id-promocodes-table').DataTable({
+       paging: true,
+       searching: true,
+       ordering:  true,
+       dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Promocodes-' + strDate,
+                exportOptions: {
+                    columns: [ 0,1,2,3,4 ]
+                }
+            }, 'csv', 'pdf', 'print'
+        ]
+    });
+
+});
+</script>

@@ -1,0 +1,28 @@
+    <% if @line_items.length == 0 %>
+        <tr>
+          <td>No item</td>
+        </tr>
+    <% else %>
+      <% @line_items.each do |line_item| %>
+        <tr>
+          <td><%= line_item.shopper.id %></td>
+          <td><%= line_item.product_id %></td>
+          <td><%= line_item.cart_id %></td>
+
+          <td><%= line_item.product.unit_price %></td>
+          <td><%= line_item.id %></td>
+
+          <td>
+           <%= form_for line_item, remote: true do |f| %>
+            <% f.submit "updateqty", class: "btn btn-primary" %>
+            <%= f.number_field :quantity, value: line_item.quantity, class: "form-control line_item_qty", min: 1 %>
+            <%= f.hidden_field :product_id, value: line_item.product_id %>
+          <% end %>
+          </td>
+          <td><%= line_item.quantity %></td>
+
+          <td><%= line_item.product.unit_price * line_item.quantity %></td>
+          <td><%= line_item.status %></td>
+        </tr>
+      <% end %>
+    <% end %>

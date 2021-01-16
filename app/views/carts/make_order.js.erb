@@ -1,0 +1,5 @@
+alert("from make_order.js.erb")
+
+var a = document.getElementById('id_current_cart_id')
+a.innerHTML = "<%= @current_cart.id %> + t1: <%= @total %>"; 
+
